@@ -1,0 +1,13 @@
+{
+	"name": "ls_datalake",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Shared data lake used to store input files ",
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://mehdistorageaccountv2.dfs.core.windows.net",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkVBUlRIREFZREFUQUZBQ1RPUllfZjU0NzQ4ZmEtODJiNC00OGRhLTg4MmItZGQ5NTkyODI4ZDgxIg0KfQ=="
+		}
+	}
+}
