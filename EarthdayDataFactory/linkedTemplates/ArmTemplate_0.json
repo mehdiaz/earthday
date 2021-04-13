@@ -1,0 +1,2095 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "EarthdayDataFactory"
+		},
+		"ls_datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_datalake'"
+		},
+		"ls_datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://mehdistorageaccountv2.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_datalake')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Shared data lake used to store input files ",
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_datalake_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_datalake_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_energy')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_datalake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "Sheet2",
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "owid_energy_dataset.xlsx",
+						"folderPath": "raw_data",
+						"fileSystem": "earthday"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "iso_code",
+						"type": "String"
+					},
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "year",
+						"type": "String"
+					},
+					{
+						"name": "coal_prod_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "coal_prod_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "gas_prod_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "gas_prod_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "oil_prod_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "oil_prod_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "energy_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "energy_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "biofuel_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "biofuel_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "biofuel_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "biofuel_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "biofuel_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "biofuel_consumption",
+						"type": "String"
+					},
+					{
+						"name": "biofuel_cons_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "carbon_intensity_elec",
+						"type": "String"
+					},
+					{
+						"name": "coal_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "coal_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "coal_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "coal_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "coal_consumption",
+						"type": "String"
+					},
+					{
+						"name": "coal_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "coal_cons_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "coal_production",
+						"type": "String"
+					},
+					{
+						"name": "coal_prod_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "electricity_generation",
+						"type": "String"
+					},
+					{
+						"name": "biofuel_electricity",
+						"type": "String"
+					},
+					{
+						"name": "coal_electricity",
+						"type": "String"
+					},
+					{
+						"name": "fossil_electricity",
+						"type": "String"
+					},
+					{
+						"name": "gas_electricity",
+						"type": "String"
+					},
+					{
+						"name": "hydro_electricity",
+						"type": "String"
+					},
+					{
+						"name": "nuclear_electricity",
+						"type": "String"
+					},
+					{
+						"name": "oil_electricity",
+						"type": "String"
+					},
+					{
+						"name": "other_renewable_electricity",
+						"type": "String"
+					},
+					{
+						"name": "other_renewable_exc_biofuel_electricity",
+						"type": "String"
+					},
+					{
+						"name": "renewables_electricity",
+						"type": "String"
+					},
+					{
+						"name": "solar_electricity",
+						"type": "String"
+					},
+					{
+						"name": "wind_electricity",
+						"type": "String"
+					},
+					{
+						"name": "energy_per_gdp",
+						"type": "String"
+					},
+					{
+						"name": "energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "fossil_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "fossil_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "fossil_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "fossil_fuel_consumption",
+						"type": "String"
+					},
+					{
+						"name": "fossil_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "fossil_cons_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "fossil_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "gas_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "gas_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "gas_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "gas_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "gas_consumption",
+						"type": "String"
+					},
+					{
+						"name": "gas_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "gas_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "gas_production",
+						"type": "String"
+					},
+					{
+						"name": "gas_prod_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "hydro_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "hydro_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "hydro_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "hydro_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "hydro_consumption",
+						"type": "String"
+					},
+					{
+						"name": "hydro_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "hydro_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "low_carbon_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "low_carbon_electricity",
+						"type": "String"
+					},
+					{
+						"name": "low_carbon_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "low_carbon_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "low_carbon_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "low_carbon_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "low_carbon_consumption",
+						"type": "String"
+					},
+					{
+						"name": "low_carbon_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "nuclear_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "nuclear_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "nuclear_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "nuclear_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "nuclear_consumption",
+						"type": "String"
+					},
+					{
+						"name": "nuclear_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "nuclear_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "oil_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "oil_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "oil_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "oil_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "oil_consumption",
+						"type": "String"
+					},
+					{
+						"name": "oil_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "oil_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "oil_production",
+						"type": "String"
+					},
+					{
+						"name": "oil_prod_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "other_renewables_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "other_renewables_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "other_renewables_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "other_renewables_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "other_renewables_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "other_renewable_consumption",
+						"type": "String"
+					},
+					{
+						"name": "other_renewables_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "per_capita_electricity",
+						"type": "String"
+					},
+					{
+						"name": "population",
+						"type": "String"
+					},
+					{
+						"name": "primary_energy_consumption",
+						"type": "String"
+					},
+					{
+						"name": "renewables_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "renewables_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "renewables_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "renewables_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "renewables_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "renewables_consumption",
+						"type": "String"
+					},
+					{
+						"name": "renewables_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "solar_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "solar_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "solar_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "solar_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "solar_consumption",
+						"type": "String"
+					},
+					{
+						"name": "solar_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "solar_energy_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "gdp",
+						"type": "String"
+					},
+					{
+						"name": "wind_share_elec",
+						"type": "String"
+					},
+					{
+						"name": "wind_cons_change_pct",
+						"type": "String"
+					},
+					{
+						"name": "wind_share_energy",
+						"type": "String"
+					},
+					{
+						"name": "wind_cons_change_twh",
+						"type": "String"
+					},
+					{
+						"name": "wind_consumption",
+						"type": "String"
+					},
+					{
+						"name": "wind_elec_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "wind_energy_per_capita",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_datalake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_temperature')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_datalake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "Sheet1",
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Homog_mean_temp_Gen3_cleaned.xlsx",
+						"folderPath": "raw_data",
+						"fileSystem": "earthday"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "file_id",
+						"type": "String"
+					},
+					{
+						"name": "Station_Number",
+						"type": "String"
+					},
+					{
+						"name": "City",
+						"type": "String"
+					},
+					{
+						"name": "Province",
+						"type": "String"
+					},
+					{
+						"name": "period",
+						"type": "String"
+					},
+					{
+						"name": "1840",
+						"type": "String"
+					},
+					{
+						"name": "1841",
+						"type": "String"
+					},
+					{
+						"name": "1842",
+						"type": "String"
+					},
+					{
+						"name": "1843",
+						"type": "String"
+					},
+					{
+						"name": "1844",
+						"type": "String"
+					},
+					{
+						"name": "1845",
+						"type": "String"
+					},
+					{
+						"name": "1846",
+						"type": "String"
+					},
+					{
+						"name": "1847",
+						"type": "String"
+					},
+					{
+						"name": "1848",
+						"type": "String"
+					},
+					{
+						"name": "1849",
+						"type": "String"
+					},
+					{
+						"name": "1850",
+						"type": "String"
+					},
+					{
+						"name": "1851",
+						"type": "String"
+					},
+					{
+						"name": "1852",
+						"type": "String"
+					},
+					{
+						"name": "1853",
+						"type": "String"
+					},
+					{
+						"name": "1854",
+						"type": "String"
+					},
+					{
+						"name": "1855",
+						"type": "String"
+					},
+					{
+						"name": "1856",
+						"type": "String"
+					},
+					{
+						"name": "1857",
+						"type": "String"
+					},
+					{
+						"name": "1858",
+						"type": "String"
+					},
+					{
+						"name": "1859",
+						"type": "String"
+					},
+					{
+						"name": "1860",
+						"type": "String"
+					},
+					{
+						"name": "1861",
+						"type": "String"
+					},
+					{
+						"name": "1862",
+						"type": "String"
+					},
+					{
+						"name": "1863",
+						"type": "String"
+					},
+					{
+						"name": "1864",
+						"type": "String"
+					},
+					{
+						"name": "1865",
+						"type": "String"
+					},
+					{
+						"name": "1866",
+						"type": "String"
+					},
+					{
+						"name": "1867",
+						"type": "String"
+					},
+					{
+						"name": "1868",
+						"type": "String"
+					},
+					{
+						"name": "1869",
+						"type": "String"
+					},
+					{
+						"name": "1870",
+						"type": "String"
+					},
+					{
+						"name": "1871",
+						"type": "String"
+					},
+					{
+						"name": "1872",
+						"type": "String"
+					},
+					{
+						"name": "1873",
+						"type": "String"
+					},
+					{
+						"name": "1874",
+						"type": "String"
+					},
+					{
+						"name": "1875",
+						"type": "String"
+					},
+					{
+						"name": "1876",
+						"type": "String"
+					},
+					{
+						"name": "1877",
+						"type": "String"
+					},
+					{
+						"name": "1878",
+						"type": "String"
+					},
+					{
+						"name": "1879",
+						"type": "String"
+					},
+					{
+						"name": "1880",
+						"type": "String"
+					},
+					{
+						"name": "1881",
+						"type": "String"
+					},
+					{
+						"name": "1882",
+						"type": "String"
+					},
+					{
+						"name": "1883",
+						"type": "String"
+					},
+					{
+						"name": "1884",
+						"type": "String"
+					},
+					{
+						"name": "1885",
+						"type": "String"
+					},
+					{
+						"name": "1886",
+						"type": "String"
+					},
+					{
+						"name": "1887",
+						"type": "String"
+					},
+					{
+						"name": "1888",
+						"type": "String"
+					},
+					{
+						"name": "1889",
+						"type": "String"
+					},
+					{
+						"name": "1890",
+						"type": "String"
+					},
+					{
+						"name": "1891",
+						"type": "String"
+					},
+					{
+						"name": "1892",
+						"type": "String"
+					},
+					{
+						"name": "1893",
+						"type": "String"
+					},
+					{
+						"name": "1894",
+						"type": "String"
+					},
+					{
+						"name": "1895",
+						"type": "String"
+					},
+					{
+						"name": "1896",
+						"type": "String"
+					},
+					{
+						"name": "1897",
+						"type": "String"
+					},
+					{
+						"name": "1898",
+						"type": "String"
+					},
+					{
+						"name": "1899",
+						"type": "String"
+					},
+					{
+						"name": "1900",
+						"type": "String"
+					},
+					{
+						"name": "1901",
+						"type": "String"
+					},
+					{
+						"name": "1902",
+						"type": "String"
+					},
+					{
+						"name": "1903",
+						"type": "String"
+					},
+					{
+						"name": "1904",
+						"type": "String"
+					},
+					{
+						"name": "1905",
+						"type": "String"
+					},
+					{
+						"name": "1906",
+						"type": "String"
+					},
+					{
+						"name": "1907",
+						"type": "String"
+					},
+					{
+						"name": "1908",
+						"type": "String"
+					},
+					{
+						"name": "1909",
+						"type": "String"
+					},
+					{
+						"name": "1910",
+						"type": "String"
+					},
+					{
+						"name": "1911",
+						"type": "String"
+					},
+					{
+						"name": "1912",
+						"type": "String"
+					},
+					{
+						"name": "1913",
+						"type": "String"
+					},
+					{
+						"name": "1914",
+						"type": "String"
+					},
+					{
+						"name": "1915",
+						"type": "String"
+					},
+					{
+						"name": "1916",
+						"type": "String"
+					},
+					{
+						"name": "1917",
+						"type": "String"
+					},
+					{
+						"name": "1918",
+						"type": "String"
+					},
+					{
+						"name": "1919",
+						"type": "String"
+					},
+					{
+						"name": "1920",
+						"type": "String"
+					},
+					{
+						"name": "1921",
+						"type": "String"
+					},
+					{
+						"name": "1922",
+						"type": "String"
+					},
+					{
+						"name": "1923",
+						"type": "String"
+					},
+					{
+						"name": "1924",
+						"type": "String"
+					},
+					{
+						"name": "1925",
+						"type": "String"
+					},
+					{
+						"name": "1926",
+						"type": "String"
+					},
+					{
+						"name": "1927",
+						"type": "String"
+					},
+					{
+						"name": "1928",
+						"type": "String"
+					},
+					{
+						"name": "1929",
+						"type": "String"
+					},
+					{
+						"name": "1930",
+						"type": "String"
+					},
+					{
+						"name": "1931",
+						"type": "String"
+					},
+					{
+						"name": "1932",
+						"type": "String"
+					},
+					{
+						"name": "1933",
+						"type": "String"
+					},
+					{
+						"name": "1934",
+						"type": "String"
+					},
+					{
+						"name": "1935",
+						"type": "String"
+					},
+					{
+						"name": "1936",
+						"type": "String"
+					},
+					{
+						"name": "1937",
+						"type": "String"
+					},
+					{
+						"name": "1938",
+						"type": "String"
+					},
+					{
+						"name": "1939",
+						"type": "String"
+					},
+					{
+						"name": "1940",
+						"type": "String"
+					},
+					{
+						"name": "1941",
+						"type": "String"
+					},
+					{
+						"name": "1942",
+						"type": "String"
+					},
+					{
+						"name": "1943",
+						"type": "String"
+					},
+					{
+						"name": "1944",
+						"type": "String"
+					},
+					{
+						"name": "1945",
+						"type": "String"
+					},
+					{
+						"name": "1946",
+						"type": "String"
+					},
+					{
+						"name": "1947",
+						"type": "String"
+					},
+					{
+						"name": "1948",
+						"type": "String"
+					},
+					{
+						"name": "1949",
+						"type": "String"
+					},
+					{
+						"name": "1950",
+						"type": "String"
+					},
+					{
+						"name": "1951",
+						"type": "String"
+					},
+					{
+						"name": "1952",
+						"type": "String"
+					},
+					{
+						"name": "1953",
+						"type": "String"
+					},
+					{
+						"name": "1954",
+						"type": "String"
+					},
+					{
+						"name": "1955",
+						"type": "String"
+					},
+					{
+						"name": "1956",
+						"type": "String"
+					},
+					{
+						"name": "1957",
+						"type": "String"
+					},
+					{
+						"name": "1958",
+						"type": "String"
+					},
+					{
+						"name": "1959",
+						"type": "String"
+					},
+					{
+						"name": "1960",
+						"type": "String"
+					},
+					{
+						"name": "1961",
+						"type": "String"
+					},
+					{
+						"name": "1962",
+						"type": "String"
+					},
+					{
+						"name": "1963",
+						"type": "String"
+					},
+					{
+						"name": "1964",
+						"type": "String"
+					},
+					{
+						"name": "1965",
+						"type": "String"
+					},
+					{
+						"name": "1966",
+						"type": "String"
+					},
+					{
+						"name": "1967",
+						"type": "String"
+					},
+					{
+						"name": "1968",
+						"type": "String"
+					},
+					{
+						"name": "1969",
+						"type": "String"
+					},
+					{
+						"name": "1970",
+						"type": "String"
+					},
+					{
+						"name": "1971",
+						"type": "String"
+					},
+					{
+						"name": "1972",
+						"type": "String"
+					},
+					{
+						"name": "1973",
+						"type": "String"
+					},
+					{
+						"name": "1974",
+						"type": "String"
+					},
+					{
+						"name": "1975",
+						"type": "String"
+					},
+					{
+						"name": "1976",
+						"type": "String"
+					},
+					{
+						"name": "1977",
+						"type": "String"
+					},
+					{
+						"name": "1978",
+						"type": "String"
+					},
+					{
+						"name": "1979",
+						"type": "String"
+					},
+					{
+						"name": "1980",
+						"type": "String"
+					},
+					{
+						"name": "1981",
+						"type": "String"
+					},
+					{
+						"name": "1982",
+						"type": "String"
+					},
+					{
+						"name": "1983",
+						"type": "String"
+					},
+					{
+						"name": "1984",
+						"type": "String"
+					},
+					{
+						"name": "1985",
+						"type": "String"
+					},
+					{
+						"name": "1986",
+						"type": "String"
+					},
+					{
+						"name": "1987",
+						"type": "String"
+					},
+					{
+						"name": "1988",
+						"type": "String"
+					},
+					{
+						"name": "1989",
+						"type": "String"
+					},
+					{
+						"name": "1990",
+						"type": "String"
+					},
+					{
+						"name": "1991",
+						"type": "String"
+					},
+					{
+						"name": "1992",
+						"type": "String"
+					},
+					{
+						"name": "1993",
+						"type": "String"
+					},
+					{
+						"name": "1994",
+						"type": "String"
+					},
+					{
+						"name": "1995",
+						"type": "String"
+					},
+					{
+						"name": "1996",
+						"type": "String"
+					},
+					{
+						"name": "1997",
+						"type": "String"
+					},
+					{
+						"name": "1998",
+						"type": "String"
+					},
+					{
+						"name": "1999",
+						"type": "String"
+					},
+					{
+						"name": "2000",
+						"type": "String"
+					},
+					{
+						"name": "2001",
+						"type": "String"
+					},
+					{
+						"name": "2002",
+						"type": "String"
+					},
+					{
+						"name": "2003",
+						"type": "String"
+					},
+					{
+						"name": "2004",
+						"type": "String"
+					},
+					{
+						"name": "2005",
+						"type": "String"
+					},
+					{
+						"name": "2006",
+						"type": "String"
+					},
+					{
+						"name": "2007",
+						"type": "String"
+					},
+					{
+						"name": "2008",
+						"type": "String"
+					},
+					{
+						"name": "2009",
+						"type": "String"
+					},
+					{
+						"name": "2010",
+						"type": "String"
+					},
+					{
+						"name": "2011",
+						"type": "String"
+					},
+					{
+						"name": "2012",
+						"type": "String"
+					},
+					{
+						"name": "2013",
+						"type": "String"
+					},
+					{
+						"name": "2014",
+						"type": "String"
+					},
+					{
+						"name": "2015",
+						"type": "String"
+					},
+					{
+						"name": "2016",
+						"type": "String"
+					},
+					{
+						"name": "2017",
+						"type": "String"
+					},
+					{
+						"name": "2018",
+						"type": "String"
+					},
+					{
+						"name": "2019",
+						"type": "String"
+					},
+					{
+						"name": "2020",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_datalake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/precipitations_ds')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_datalake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "Sheet1",
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Adj_total_prec_cleaned.xlsx",
+						"folderPath": "raw_data",
+						"fileSystem": "earthday"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "file_id",
+						"type": "String"
+					},
+					{
+						"name": "Station_Number",
+						"type": "String"
+					},
+					{
+						"name": "City",
+						"type": "String"
+					},
+					{
+						"name": "Province",
+						"type": "String"
+					},
+					{
+						"name": "period",
+						"type": "String"
+					},
+					{
+						"name": "1841",
+						"type": "String"
+					},
+					{
+						"name": "1842",
+						"type": "String"
+					},
+					{
+						"name": "1843",
+						"type": "String"
+					},
+					{
+						"name": "1844",
+						"type": "String"
+					},
+					{
+						"name": "1845",
+						"type": "String"
+					},
+					{
+						"name": "1846",
+						"type": "String"
+					},
+					{
+						"name": "1847",
+						"type": "String"
+					},
+					{
+						"name": "1848",
+						"type": "String"
+					},
+					{
+						"name": "1849",
+						"type": "String"
+					},
+					{
+						"name": "1850",
+						"type": "String"
+					},
+					{
+						"name": "1851",
+						"type": "String"
+					},
+					{
+						"name": "1852",
+						"type": "String"
+					},
+					{
+						"name": "1853",
+						"type": "String"
+					},
+					{
+						"name": "1854",
+						"type": "String"
+					},
+					{
+						"name": "1855",
+						"type": "String"
+					},
+					{
+						"name": "1856",
+						"type": "String"
+					},
+					{
+						"name": "1857",
+						"type": "String"
+					},
+					{
+						"name": "1858",
+						"type": "String"
+					},
+					{
+						"name": "1859",
+						"type": "String"
+					},
+					{
+						"name": "1860",
+						"type": "String"
+					},
+					{
+						"name": "1861",
+						"type": "String"
+					},
+					{
+						"name": "1862",
+						"type": "String"
+					},
+					{
+						"name": "1863",
+						"type": "String"
+					},
+					{
+						"name": "1864",
+						"type": "String"
+					},
+					{
+						"name": "1865",
+						"type": "String"
+					},
+					{
+						"name": "1866",
+						"type": "String"
+					},
+					{
+						"name": "1867",
+						"type": "String"
+					},
+					{
+						"name": "1868",
+						"type": "String"
+					},
+					{
+						"name": "1869",
+						"type": "String"
+					},
+					{
+						"name": "1870",
+						"type": "String"
+					},
+					{
+						"name": "1871",
+						"type": "String"
+					},
+					{
+						"name": "1872",
+						"type": "String"
+					},
+					{
+						"name": "1873",
+						"type": "String"
+					},
+					{
+						"name": "1874",
+						"type": "String"
+					},
+					{
+						"name": "1875",
+						"type": "String"
+					},
+					{
+						"name": "1876",
+						"type": "String"
+					},
+					{
+						"name": "1877",
+						"type": "String"
+					},
+					{
+						"name": "1878",
+						"type": "String"
+					},
+					{
+						"name": "1879",
+						"type": "String"
+					},
+					{
+						"name": "1880",
+						"type": "String"
+					},
+					{
+						"name": "1881",
+						"type": "String"
+					},
+					{
+						"name": "1882",
+						"type": "String"
+					},
+					{
+						"name": "1883",
+						"type": "String"
+					},
+					{
+						"name": "1884",
+						"type": "String"
+					},
+					{
+						"name": "1885",
+						"type": "String"
+					},
+					{
+						"name": "1886",
+						"type": "String"
+					},
+					{
+						"name": "1887",
+						"type": "String"
+					},
+					{
+						"name": "1888",
+						"type": "String"
+					},
+					{
+						"name": "1889",
+						"type": "String"
+					},
+					{
+						"name": "1890",
+						"type": "String"
+					},
+					{
+						"name": "1891",
+						"type": "String"
+					},
+					{
+						"name": "1892",
+						"type": "String"
+					},
+					{
+						"name": "1893",
+						"type": "String"
+					},
+					{
+						"name": "1894",
+						"type": "String"
+					},
+					{
+						"name": "1895",
+						"type": "String"
+					},
+					{
+						"name": "1896",
+						"type": "String"
+					},
+					{
+						"name": "1897",
+						"type": "String"
+					},
+					{
+						"name": "1898",
+						"type": "String"
+					},
+					{
+						"name": "1899",
+						"type": "String"
+					},
+					{
+						"name": "1900",
+						"type": "String"
+					},
+					{
+						"name": "1901",
+						"type": "String"
+					},
+					{
+						"name": "1902",
+						"type": "String"
+					},
+					{
+						"name": "1903",
+						"type": "String"
+					},
+					{
+						"name": "1904",
+						"type": "String"
+					},
+					{
+						"name": "1905",
+						"type": "String"
+					},
+					{
+						"name": "1906",
+						"type": "String"
+					},
+					{
+						"name": "1907",
+						"type": "String"
+					},
+					{
+						"name": "1908",
+						"type": "String"
+					},
+					{
+						"name": "1909",
+						"type": "String"
+					},
+					{
+						"name": "1910",
+						"type": "String"
+					},
+					{
+						"name": "1911",
+						"type": "String"
+					},
+					{
+						"name": "1912",
+						"type": "String"
+					},
+					{
+						"name": "1913",
+						"type": "String"
+					},
+					{
+						"name": "1914",
+						"type": "String"
+					},
+					{
+						"name": "1915",
+						"type": "String"
+					},
+					{
+						"name": "1916",
+						"type": "String"
+					},
+					{
+						"name": "1917",
+						"type": "String"
+					},
+					{
+						"name": "1918",
+						"type": "String"
+					},
+					{
+						"name": "1919",
+						"type": "String"
+					},
+					{
+						"name": "1920",
+						"type": "String"
+					},
+					{
+						"name": "1921",
+						"type": "String"
+					},
+					{
+						"name": "1922",
+						"type": "String"
+					},
+					{
+						"name": "1923",
+						"type": "String"
+					},
+					{
+						"name": "1924",
+						"type": "String"
+					},
+					{
+						"name": "1925",
+						"type": "String"
+					},
+					{
+						"name": "1926",
+						"type": "String"
+					},
+					{
+						"name": "1927",
+						"type": "String"
+					},
+					{
+						"name": "1928",
+						"type": "String"
+					},
+					{
+						"name": "1929",
+						"type": "String"
+					},
+					{
+						"name": "1930",
+						"type": "String"
+					},
+					{
+						"name": "1931",
+						"type": "String"
+					},
+					{
+						"name": "1932",
+						"type": "String"
+					},
+					{
+						"name": "1933",
+						"type": "String"
+					},
+					{
+						"name": "1934",
+						"type": "String"
+					},
+					{
+						"name": "1935",
+						"type": "String"
+					},
+					{
+						"name": "1936",
+						"type": "String"
+					},
+					{
+						"name": "1937",
+						"type": "String"
+					},
+					{
+						"name": "1938",
+						"type": "String"
+					},
+					{
+						"name": "1939",
+						"type": "String"
+					},
+					{
+						"name": "1940",
+						"type": "String"
+					},
+					{
+						"name": "1941",
+						"type": "String"
+					},
+					{
+						"name": "1942",
+						"type": "String"
+					},
+					{
+						"name": "1943",
+						"type": "String"
+					},
+					{
+						"name": "1944",
+						"type": "String"
+					},
+					{
+						"name": "1945",
+						"type": "String"
+					},
+					{
+						"name": "1946",
+						"type": "String"
+					},
+					{
+						"name": "1947",
+						"type": "String"
+					},
+					{
+						"name": "1948",
+						"type": "String"
+					},
+					{
+						"name": "1949",
+						"type": "String"
+					},
+					{
+						"name": "1950",
+						"type": "String"
+					},
+					{
+						"name": "1951",
+						"type": "String"
+					},
+					{
+						"name": "1952",
+						"type": "String"
+					},
+					{
+						"name": "1953",
+						"type": "String"
+					},
+					{
+						"name": "1954",
+						"type": "String"
+					},
+					{
+						"name": "1955",
+						"type": "String"
+					},
+					{
+						"name": "1956",
+						"type": "String"
+					},
+					{
+						"name": "1957",
+						"type": "String"
+					},
+					{
+						"name": "1958",
+						"type": "String"
+					},
+					{
+						"name": "1959",
+						"type": "String"
+					},
+					{
+						"name": "1960",
+						"type": "String"
+					},
+					{
+						"name": "1961",
+						"type": "String"
+					},
+					{
+						"name": "1962",
+						"type": "String"
+					},
+					{
+						"name": "1963",
+						"type": "String"
+					},
+					{
+						"name": "1964",
+						"type": "String"
+					},
+					{
+						"name": "1965",
+						"type": "String"
+					},
+					{
+						"name": "1966",
+						"type": "String"
+					},
+					{
+						"name": "1967",
+						"type": "String"
+					},
+					{
+						"name": "1968",
+						"type": "String"
+					},
+					{
+						"name": "1969",
+						"type": "String"
+					},
+					{
+						"name": "1970",
+						"type": "String"
+					},
+					{
+						"name": "1971",
+						"type": "String"
+					},
+					{
+						"name": "1972",
+						"type": "String"
+					},
+					{
+						"name": "1973",
+						"type": "String"
+					},
+					{
+						"name": "1974",
+						"type": "String"
+					},
+					{
+						"name": "1975",
+						"type": "String"
+					},
+					{
+						"name": "1976",
+						"type": "String"
+					},
+					{
+						"name": "1977",
+						"type": "String"
+					},
+					{
+						"name": "1978",
+						"type": "String"
+					},
+					{
+						"name": "1979",
+						"type": "String"
+					},
+					{
+						"name": "1980",
+						"type": "String"
+					},
+					{
+						"name": "1981",
+						"type": "String"
+					},
+					{
+						"name": "1982",
+						"type": "String"
+					},
+					{
+						"name": "1983",
+						"type": "String"
+					},
+					{
+						"name": "1984",
+						"type": "String"
+					},
+					{
+						"name": "1985",
+						"type": "String"
+					},
+					{
+						"name": "1986",
+						"type": "String"
+					},
+					{
+						"name": "1987",
+						"type": "String"
+					},
+					{
+						"name": "1988",
+						"type": "String"
+					},
+					{
+						"name": "1989",
+						"type": "String"
+					},
+					{
+						"name": "1990",
+						"type": "String"
+					},
+					{
+						"name": "1991",
+						"type": "String"
+					},
+					{
+						"name": "1992",
+						"type": "String"
+					},
+					{
+						"name": "1993",
+						"type": "String"
+					},
+					{
+						"name": "1994",
+						"type": "String"
+					},
+					{
+						"name": "1995",
+						"type": "String"
+					},
+					{
+						"name": "1996",
+						"type": "String"
+					},
+					{
+						"name": "1997",
+						"type": "String"
+					},
+					{
+						"name": "1998",
+						"type": "String"
+					},
+					{
+						"name": "1999",
+						"type": "String"
+					},
+					{
+						"name": "2000",
+						"type": "String"
+					},
+					{
+						"name": "2001",
+						"type": "String"
+					},
+					{
+						"name": "2002",
+						"type": "String"
+					},
+					{
+						"name": "2003",
+						"type": "String"
+					},
+					{
+						"name": "2004",
+						"type": "String"
+					},
+					{
+						"name": "2005",
+						"type": "String"
+					},
+					{
+						"name": "2006",
+						"type": "String"
+					},
+					{
+						"name": "2007",
+						"type": "String"
+					},
+					{
+						"name": "2008",
+						"type": "String"
+					},
+					{
+						"name": "2009",
+						"type": "String"
+					},
+					{
+						"name": "2010",
+						"type": "String"
+					},
+					{
+						"name": "2011",
+						"type": "String"
+					},
+					{
+						"name": "2012",
+						"type": "String"
+					},
+					{
+						"name": "2013",
+						"type": "String"
+					},
+					{
+						"name": "2014",
+						"type": "String"
+					},
+					{
+						"name": "2015",
+						"type": "String"
+					},
+					{
+						"name": "2016",
+						"type": "String"
+					},
+					{
+						"name": "2017",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_datalake')]"
+			]
+		}
+	]
+}
