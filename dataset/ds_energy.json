@@ -1,0 +1,511 @@
+{
+	"name": "ds_energy",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet2",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "owid_energy_dataset.xlsx",
+				"folderPath": "raw_data",
+				"fileSystem": "earthday"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "iso_code",
+				"type": "String"
+			},
+			{
+				"name": "country",
+				"type": "String"
+			},
+			{
+				"name": "year",
+				"type": "String"
+			},
+			{
+				"name": "coal_prod_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "coal_prod_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "gas_prod_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "gas_prod_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "oil_prod_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "oil_prod_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "energy_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "energy_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "biofuel_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "biofuel_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "biofuel_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "biofuel_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "biofuel_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "biofuel_consumption",
+				"type": "String"
+			},
+			{
+				"name": "biofuel_cons_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "carbon_intensity_elec",
+				"type": "String"
+			},
+			{
+				"name": "coal_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "coal_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "coal_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "coal_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "coal_consumption",
+				"type": "String"
+			},
+			{
+				"name": "coal_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "coal_cons_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "coal_production",
+				"type": "String"
+			},
+			{
+				"name": "coal_prod_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "electricity_generation",
+				"type": "String"
+			},
+			{
+				"name": "biofuel_electricity",
+				"type": "String"
+			},
+			{
+				"name": "coal_electricity",
+				"type": "String"
+			},
+			{
+				"name": "fossil_electricity",
+				"type": "String"
+			},
+			{
+				"name": "gas_electricity",
+				"type": "String"
+			},
+			{
+				"name": "hydro_electricity",
+				"type": "String"
+			},
+			{
+				"name": "nuclear_electricity",
+				"type": "String"
+			},
+			{
+				"name": "oil_electricity",
+				"type": "String"
+			},
+			{
+				"name": "other_renewable_electricity",
+				"type": "String"
+			},
+			{
+				"name": "other_renewable_exc_biofuel_electricity",
+				"type": "String"
+			},
+			{
+				"name": "renewables_electricity",
+				"type": "String"
+			},
+			{
+				"name": "solar_electricity",
+				"type": "String"
+			},
+			{
+				"name": "wind_electricity",
+				"type": "String"
+			},
+			{
+				"name": "energy_per_gdp",
+				"type": "String"
+			},
+			{
+				"name": "energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "fossil_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "fossil_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "fossil_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "fossil_fuel_consumption",
+				"type": "String"
+			},
+			{
+				"name": "fossil_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "fossil_cons_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "fossil_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "gas_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "gas_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "gas_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "gas_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "gas_consumption",
+				"type": "String"
+			},
+			{
+				"name": "gas_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "gas_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "gas_production",
+				"type": "String"
+			},
+			{
+				"name": "gas_prod_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "hydro_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "hydro_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "hydro_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "hydro_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "hydro_consumption",
+				"type": "String"
+			},
+			{
+				"name": "hydro_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "hydro_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "low_carbon_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "low_carbon_electricity",
+				"type": "String"
+			},
+			{
+				"name": "low_carbon_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "low_carbon_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "low_carbon_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "low_carbon_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "low_carbon_consumption",
+				"type": "String"
+			},
+			{
+				"name": "low_carbon_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "nuclear_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "nuclear_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "nuclear_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "nuclear_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "nuclear_consumption",
+				"type": "String"
+			},
+			{
+				"name": "nuclear_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "nuclear_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "oil_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "oil_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "oil_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "oil_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "oil_consumption",
+				"type": "String"
+			},
+			{
+				"name": "oil_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "oil_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "oil_production",
+				"type": "String"
+			},
+			{
+				"name": "oil_prod_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "other_renewables_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "other_renewables_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "other_renewables_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "other_renewables_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "other_renewables_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "other_renewable_consumption",
+				"type": "String"
+			},
+			{
+				"name": "other_renewables_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "per_capita_electricity",
+				"type": "String"
+			},
+			{
+				"name": "population",
+				"type": "String"
+			},
+			{
+				"name": "primary_energy_consumption",
+				"type": "String"
+			},
+			{
+				"name": "renewables_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "renewables_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "renewables_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "renewables_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "renewables_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "renewables_consumption",
+				"type": "String"
+			},
+			{
+				"name": "renewables_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "solar_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "solar_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "solar_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "solar_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "solar_consumption",
+				"type": "String"
+			},
+			{
+				"name": "solar_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "solar_energy_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "gdp",
+				"type": "String"
+			},
+			{
+				"name": "wind_share_elec",
+				"type": "String"
+			},
+			{
+				"name": "wind_cons_change_pct",
+				"type": "String"
+			},
+			{
+				"name": "wind_share_energy",
+				"type": "String"
+			},
+			{
+				"name": "wind_cons_change_twh",
+				"type": "String"
+			},
+			{
+				"name": "wind_consumption",
+				"type": "String"
+			},
+			{
+				"name": "wind_elec_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "wind_energy_per_capita",
+				"type": "String"
+			}
+		]
+	}
+}
