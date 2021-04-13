@@ -1,0 +1,24 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "precipitations_ds",
+						"type": "DatasetReference"
+					},
+					"name": "PrecipitationsSource"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "yearsToRows"
+				}
+			],
+			"script": "source(output(\n\t\tfile_id as string,\n\t\tStation_Number as string,\n\t\tCity as string,\n\t\tProvince as string,\n\t\tperiod as string,\n\t\t{1841} as string,\n\t\t{1842} as string,\n\t\t{1843} as string,\n\t\t{1844} as string,\n\t\t{1845} as string,\n\t\t{1846} as string,\n\t\t{1847} as string,\n\t\t{1848} as string,\n\t\t{1849} as string,\n\t\t{1850} as string,\n\t\t{1851} as string,\n\t\t{1852} as string,\n\t\t{1853} as string,\n\t\t{1854} as string,\n\t\t{1855} as string,\n\t\t{1856} as string,\n\t\t{1857} as string,\n\t\t{1858} as string,\n\t\t{1859} as string,\n\t\t{1860} as string,\n\t\t{1861} as string,\n\t\t{1862} as string,\n\t\t{1863} as string,\n\t\t{1864} as string,\n\t\t{1865} as string,\n\t\t{1866} as string,\n\t\t{1867} as string,\n\t\t{1868} as string,\n\t\t{1869} as string,\n\t\t{1870} as string,\n\t\t{1871} as string,\n\t\t{1872} as string,\n\t\t{1873} as string,\n\t\t{1874} as string,\n\t\t{1875} as string,\n\t\t{1876} as string,\n\t\t{1877} as string,\n\t\t{1878} as string,\n\t\t{1879} as string,\n\t\t{1880} as string,\n\t\t{1881} as string,\n\t\t{1882} as string,\n\t\t{1883} as string,\n\t\t{1884} as string,\n\t\t{1885} as string,\n\t\t{1886} as string,\n\t\t{1887} as string,\n\t\t{1888} as string,\n\t\t{1889} as string,\n\t\t{1890} as string,\n\t\t{1891} as string,\n\t\t{1892} as string,\n\t\t{1893} as string,\n\t\t{1894} as string,\n\t\t{1895} as string,\n\t\t{1896} as string,\n\t\t{1897} as string,\n\t\t{1898} as string,\n\t\t{1899} as string,\n\t\t{1900} as string,\n\t\t{1901} as string,\n\t\t{1902} as string,\n\t\t{1903} as string,\n\t\t{1904} as string,\n\t\t{1905} as string,\n\t\t{1906} as string,\n\t\t{1907} as string,\n\t\t{1908} as string,\n\t\t{1909} as string,\n\t\t{1910} as string,\n\t\t{1911} as string,\n\t\t{1912} as string,\n\t\t{1913} as string,\n\t\t{1914} as string,\n\t\t{1915} as string,\n\t\t{1916} as string,\n\t\t{1917} as string,\n\t\t{1918} as string,\n\t\t{1919} as string,\n\t\t{1920} as string,\n\t\t{1921} as string,\n\t\t{1922} as string,\n\t\t{1923} as string,\n\t\t{1924} as string,\n\t\t{1925} as string,\n\t\t{1926} as string,\n\t\t{1927} as string,\n\t\t{1928} as string,\n\t\t{1929} as string,\n\t\t{1930} as string,\n\t\t{1931} as string,\n\t\t{1932} as string,\n\t\t{1933} as string,\n\t\t{1934} as string,\n\t\t{1935} as string,\n\t\t{1936} as string,\n\t\t{1937} as string,\n\t\t{1938} as string,\n\t\t{1939} as string,\n\t\t{1940} as string,\n\t\t{1941} as string,\n\t\t{1942} as string,\n\t\t{1943} as string,\n\t\t{1944} as string,\n\t\t{1945} as string,\n\t\t{1946} as string,\n\t\t{1947} as string,\n\t\t{1948} as string,\n\t\t{1949} as string,\n\t\t{1950} as string,\n\t\t{1951} as string,\n\t\t{1952} as string,\n\t\t{1953} as string,\n\t\t{1954} as string,\n\t\t{1955} as string,\n\t\t{1956} as string,\n\t\t{1957} as string,\n\t\t{1958} as string,\n\t\t{1959} as string,\n\t\t{1960} as string,\n\t\t{1961} as string,\n\t\t{1962} as string,\n\t\t{1963} as string,\n\t\t{1964} as string,\n\t\t{1965} as string,\n\t\t{1966} as string,\n\t\t{1967} as string,\n\t\t{1968} as string,\n\t\t{1969} as string,\n\t\t{1970} as string,\n\t\t{1971} as string,\n\t\t{1972} as string,\n\t\t{1973} as string,\n\t\t{1974} as string,\n\t\t{1975} as string,\n\t\t{1976} as string,\n\t\t{1977} as string,\n\t\t{1978} as string,\n\t\t{1979} as string,\n\t\t{1980} as string,\n\t\t{1981} as string,\n\t\t{1982} as string,\n\t\t{1983} as string,\n\t\t{1984} as string,\n\t\t{1985} as string,\n\t\t{1986} as string,\n\t\t{1987} as string,\n\t\t{1988} as string,\n\t\t{1989} as string,\n\t\t{1990} as string,\n\t\t{1991} as string,\n\t\t{1992} as string,\n\t\t{1993} as string,\n\t\t{1994} as string,\n\t\t{1995} as string,\n\t\t{1996} as string,\n\t\t{1997} as string,\n\t\t{1998} as string,\n\t\t{1999} as string,\n\t\t{2000} as string,\n\t\t{2001} as string,\n\t\t{2002} as string,\n\t\t{2003} as string,\n\t\t{2004} as string,\n\t\t{2005} as string,\n\t\t{2006} as string,\n\t\t{2007} as string,\n\t\t{2008} as string,\n\t\t{2009} as string,\n\t\t{2010} as string,\n\t\t{2011} as string,\n\t\t{2012} as string,\n\t\t{2013} as string,\n\t\t{2014} as string,\n\t\t{2015} as string,\n\t\t{2016} as string,\n\t\t{2017} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tinferDriftedColumnTypes: true) ~> PrecipitationsSource\nPrecipitationsSource unpivot(output(\n\t\tYear as string,\n\t\t{1841} as string,\n\t\t{1942} as string,\n\t\t{1943} as string\n\t),\n\tlateral: true,\n\tignoreNullPivots: false) ~> yearsToRows"
+		}
+	}
+}
